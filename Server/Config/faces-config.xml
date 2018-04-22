@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+    
+    <managed-bean>
+		<managed-bean-name>studentBean</managed-bean-name>
+		<managed-bean-class>mrumi_hw5.studentBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+    
+    <managed-bean>
+		<managed-bean-name>searchBean</managed-bean-name>
+		<managed-bean-class>mrumi_hw5.searchBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<navigation-rule>
+		<from-view-id>/survey.xhtml</from-view-id>	
+			<navigation-case>
+				<from-outcome>SimpleSuccess</from-outcome>
+				<to-view-id>/SimpleAcknowledgement.xhtml</to-view-id>			
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>WinnerSuccess</from-outcome>
+				<to-view-id>/WinnerAcknowledgement.xhtml</to-view-id>			
+			</navigation-case>		
+			<navigation-case>
+				<from-outcome>GoBack</from-outcome>
+				<to-view-id>/survey.xhtml</to-view-id>
+			</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/ListSurvey.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>deleted</from-outcome>
+			<to-view-id>/ListSurvey.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+</faces-config>
