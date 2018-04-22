@@ -1,0 +1,151 @@
+<!-- 
+Author = Monjura Afrin Rumi 
+This page contains survey required information. need to be filled by user.
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Survey page</title>
+	<h:outputStylesheet name="css/style.css" />
+</h:head>
+
+<h:body>
+	<h:form id="survey">
+		<h:panelGrid columns="2" styleClass="centered">		
+			<h:outputLink value="http://cs.gmu.edu/" >
+				<p:graphicImage library="images" name="cs-logo.jpg" align="center" width = "100" height = "100" />
+			</h:outputLink >
+		
+			<h1 class="heading" align="center">Department of Computer Science</h1>		
+		</h:panelGrid>
+	
+		<div id="sidebar">		  	
+		  <h4 class="sidebar"><p:link value="Feedback" styleClass="link" outcome="survey" /></h4>
+		  <h4 class="sidebar"><p:link value="Survey List" styleClass="link" outcome="ListSurvey" /></h4>
+		  <h4 class="sidebar"><p:link value="Search List" styleClass="link" href="http://ec2-35-166-60-65.us-west-2.compute.amazonaws.com/mrumi_ws_Client/SearchSurvey.jsf" /></h4>
+		</div>					
+		
+		<div id="main">
+				
+			<h3>This is a survey from CS department. We request prospective students to provide some feedback about their campus visit.</h3>
+			<h:panelGrid columns="3">
+				<p:outputLabel value="First Name" />				
+				<p:inputText value="#{studentBean.fname}" id="fname" required="true" maxlength="15"
+					requiredMessage="Please enter first name" 
+					validatorMessage="First name contains invalid character" >
+						<f:validateRegex pattern="[a-zA-Z][a-zA-Z ]*" /></p:inputText>
+				<p:message for="fname" styleClass="error" />
+				
+				<p:outputLabel value="Last Name" />
+				<p:inputText value="#{studentBean.lname}" id="lname" required="true" maxlength="15"
+					requiredMessage="Please enter last name"
+					validatorMessage="Last name contains invalid character">
+						<f:validateRegex pattern="[a-zA-Z][a-zA-Z ]*" /></p:inputText>
+				<p:message for="lname" styleClass="error" />
+				
+				<p:outputLabel value="Address" />
+				<p:inputText value="#{studentBean.address}" id="address" required="true" maxlength="30"
+					requiredMessage="Please enter street address"
+					validatorMessage="Address contains invalid character">
+						<f:validateRegex pattern="[A-Za-z0-9'\.\-\s\,]*" /></p:inputText>				 
+				<p:message for="address" styleClass="error" />
+				
+				<p:outputLabel value="Zip Code" />				
+				<p:inputText value="#{studentBean.zip}" id="zip" name ="zip" required="true" maxlength="5"
+					requiredMessage="Please enter the zip code" 
+					validatorMessage="Zip code must have 5 digits">
+					<f:validateLength minimum="5" maximum="5" />
+					<f:ajax event="keyup" render="city state"/>
+				</p:inputText>					
+				<p:message for="zip" styleClass="error" />								
+				
+				<p:outputLabel value="City" />				
+				<p:inputText value="#{studentBean.city}" id="city" required="true"
+					requiredMessage="Please enter the city" ></p:inputText>
+				<p:message for="city" styleClass="error" />
+				
+				<p:outputLabel value="State" />				
+				<p:inputText value="#{studentBean.state}" id="state" required="true" maxlength="2"
+					requiredMessage="Please enter the state" ></p:inputText>
+				<p:message for="state" styleClass="error" />
+								
+				<p:outputLabel value="Telephone" />				
+				<p:inputMask mask="(999) 999-9999" value="#{studentBean.phone}" id="phone" required="true"
+					requiredMessage="Please enter telephone number"
+					validatorMessage="Correct format of phone number is (xxx) xxx-xxxx" />						
+				<p:message for="phone" styleClass="error" />
+				
+				<p:outputLabel value="Email" />				
+				<p:inputText value="#{studentBean.email}" id="email" required="true"
+					requiredMessage="Please enter email address"
+					validatorMessage="Invalid E-mail format">
+						<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /> </p:inputText>					
+				<p:message for="email" styleClass="error" />								
+				
+				<p:outputLabel value="Date" />	
+				<p:calendar id="date" binding="#{sdate}" value="#{studentBean.date}" required="true" 
+					mindate="#{studentBean.current}" requiredMessage="Please enter date"  
+					validator="#{studentBean.dateValidation}" />																					
+				<p:message for="date" styleClass="error" />
+				
+				<p:outputLabel value="Semester" />				
+				<p:calendar id="semester" value="#{studentBean.semester}" required="true" 
+					requiredMessage="Please enter semester start date" >
+					<f:validator validatorId="semesterValidation" />					
+					<f:attribute name="sdate"  value="#{sdate}" />
+					</p:calendar>
+				<p:message for="semester" styleClass="error" />		
+											
+			</h:panelGrid>
+			<br/>
+			<h5>Survey Questions</h5>
+			<br/>
+			<h:panelGrid columns="1">
+				<p:outputLabel value="Things you liked most about the campus" />				
+				<p:selectManyCheckbox id="thingsliked" value="#{studentBean.mostliked}">
+					<f:selectItem itemValue="Students" itemLabel="Students" />
+					<f:selectItem itemValue="Location" itemLabel="Location" />
+					<f:selectItem itemValue="Campus" itemLabel="Campus" />
+					<f:selectItem itemValue="Atmosphere" itemLabel="Atmosphere" />
+					<f:selectItem itemValue="Dorm rooms" itemLabel="Dorm rooms" />
+					<f:selectItem itemValue="Sports" itemLabel="Sports" />
+				</p:selectManyCheckbox>
+				<br/>
+				<p:outputLabel value="How do you become interested in GMU?" />				
+				<p:selectOneRadio id="interested" value="#{studentBean.interested}">
+					<f:selectItem itemValue="Friends" itemLabel="Friends" />
+					<f:selectItem itemValue="Television" itemLabel="Television" />
+					<f:selectItem itemValue="Internet" itemLabel="Internet" />
+					<f:selectItem itemValue="Other" itemLabel="Other" />
+				</p:selectOneRadio>
+				<br/>
+				<p:outputLabel value="Are you going to recommend this school to other students?" for="recommend"/>							
+        		<p:autoComplete id="recommend" dropdown="true" value="#{studentBean.recommend}" completeMethod="#{studentBean.createRecommend}" /> 							        		
+				<br/>
+				<p:outputLabel value="Additional Comments" />
+				<p:inputTextarea row="5" col="10" value="#{studentBean.comment}" maxlength="200" />
+				<br/>
+				<p:outputLabel value="Write down 10 number within the range of 1-100. Separate them using comma" />
+			</h:panelGrid>
+			<br/>
+			<h:panelGrid columns="3">
+				<p:outputLabel value="Raffle" />
+				<p:inputText value="#{studentBean.numbers}" id="numbers" 										
+					validator="#{studentBean.numberValidation}" />			
+				<p:message for="numbers" styleClass="error" />
+				<br/><br/><br/>
+				<p:commandButton value="Submit" update="survey" ajax="true" action="#{studentBean.storeData}" />
+				<p:commandButton value="Cancel" action="#{studentBean.cancelStorage}" />
+			</h:panelGrid>
+		</div>
+	</h:form>
+</h:body>
+</html>
