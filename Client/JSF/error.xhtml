@@ -1,0 +1,44 @@
+<!-- 
+Author = Monjura Afrin Rumi 
+This page is used for debugging. I used it to check if soap service is working or not. 
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head>
+	<title>Search page</title>
+	<h:outputStylesheet name="css/style.css" />
+</h:head>
+
+<h:body>
+	<h:form>
+		<h:panelGrid columns="2" styleClass="centered">		
+			<h:outputLink value="http://cs.gmu.edu/" >
+				<p:graphicImage library="images" name="cs-logo.jpg" align="center" width = "100" height = "100" />
+			</h:outputLink >
+		
+			<h1 class="heading" align="center">Department of Computer Science</h1>		
+		</h:panelGrid>
+	
+		<div id="sidebar">	
+			<h4 class="sidebar"><p:link value="Feedback" styleClass="link" href="http://ec2-35-166-60-65.us-west-2.compute.amazonaws.com/mrumi_hw5/survey.jsf" /></h4>			
+			<h4 class="sidebar"><p:link value="Survey List" styleClass="link" href="http://ec2-35-166-60-65.us-west-2.compute.amazonaws.com/mrumi_hw5/ListSurvey.jsf" /></h4>		 		  
+			<h4 class="sidebar"><p:link value="Search List" styleClass="link" outcome="SearchSurvey" /></h4>
+		</div>
+		 
+		<div id="main">
+			<h3 class="header">Something has gone <span style='color: red;'>WRONG </span>.</h3>
+			
+			
+			<p>Error message: #{searchStudentBean.err_msg}</p>
+		</div>				
+	</h:form>
+</h:body>
+</html>
