@@ -18,6 +18,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.validator.ValidatorException;
 
+import javax.ws.rs.client.*;
+import javax.ws.rs.core.*;
+import java.net.URI;
+import org.glassfish.jersey.client.ClientConfig;
+
+
 @ManagedBean
 @SessionScoped
 public class studentBean {
@@ -260,20 +266,28 @@ public class studentBean {
 		return new Date();
 	}	
 		
-	private String ajax_called(String zip)
-	{
-		String [] z = {"22312","22030","22301","20148"};
-		String [] c = {"Alexandria","Fairfax","Tysons Corner","Ashburn"};
-		String [] s = {"VA","VA","MD","VA"};
-		String location="not found,sorry";						
-		for(int i=0;i<z.length;i++)
-		{
-			if(z[i].equals(zip))
-			{				
-				location = c[i]+","+s[i];				
-			}
-		}				
-        return location;
+	private static URI getBaseURI() {
+	    return UriBuilder.fromUri("http://ec2-35-166-60-65.us-west-2.compute.amazonaws.com/hw3_test").build();
+		//return UriBuilder.fromUri("http://localhost:8080/hw3_test").build();
+	  }
+	
+	private String ajax_called(String zip){
+		//WebTarget target = ClientBuilder.newClient().target("http://localhost:8080/hw3_test");
+		//WebTarget target = ClientBuilder.newClient().target("http://ec2-35-166-60-65.us-west-2.compute.amazonaws.com/hw3_test/rest/address/create/");
+		try{
+			ClientConfig config = new ClientConfig();
+	        Client client = ClientBuilder.newClient(config);
+	        WebTarget target = client.target(getBaseURI());			
+			//Form form =new Form();
+			//form.param("zipcode", zip);
+			//String response = target.request().post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED),String.class);
+			//Response response = target.path(zip).request().accept(MediaType.TEXT_PLAIN).get();
+			String response = target.path("rest").path("todos").path(zip).request().accept(MediaType.TEXT_PLAIN).get(String.class);
+			//System.out.println(response.toString());				
+	        return response;
+		}catch(Exception e){
+			return e.toString();
+		}
 	}
 	
 	public void dateValidation(FacesContext context, UIComponent componentToValidate, Object value) throws ValidatorException
