@@ -13,6 +13,19 @@
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.jsf</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>Jersey Rest Services</servlet-name>
+  	<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+  	<init-param>
+        <param-name>jersey.config.server.provider.packages</param-name>
+        <param-value>hw3_test</param-value>
+    </init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Jersey Rest Services</servlet-name>
+  	<url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
   <context-param>
     <param-name>javax.faces.PROJECT_STAGE</param-name>
     <param-value>Development</param-value>
