@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+    
+    <managed-bean>
+		<managed-bean-name>searchStudentBean</managed-bean-name>
+		<managed-bean-class>Client.searchStudentBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<navigation-rule>
+		<from-view-id>/SearchSurvey.xhtml</from-view-id>
+			<navigation-case>
+				<from-outcome>searchResult</from-outcome>
+				<to-view-id>/SearchResult.xhtml</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>back</from-outcome>
+				<to-view-id>/SearchSurvey.xhtml</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>error</from-outcome>
+				<to-view-id>/error.xhtml</to-view-id>
+			</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/SearchResult.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>deleted</from-outcome>
+			<to-view-id>/SearchResult.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>    
+    
+</faces-config>
